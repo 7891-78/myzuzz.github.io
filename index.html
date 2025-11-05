@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myzu - Minecraft全能外挂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff0080, #00ffcc, #ff0080);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ff0080, #00ffcc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 0, 128, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #c0c0c0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, #ff0080, #00ffcc);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: rgba(20, 20, 30, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 0, 128, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #00ffcc;
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #ff0080;
+        }
+        
+        .feature-desc {
+            color: #b0b0b0;
+        }
+        
+        .highlight {
+            background: rgba(255, 0, 128, 0.1);
+            border-left: 4px solid #ff0080;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .comparison {
+            background: rgba(10, 10, 20, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .comparison h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ffcc;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th {
+            background: rgba(255, 0, 128, 0.2);
+            color: #ff0080;
+        }
+        
+        .check {
+            color: #00ffcc;
+            font-weight: bold;
+        }
+        
+        .cross {
+            color: #ff3333;
+        }
+        
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .screenshot {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.03);
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .screenshot-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+        }
+        
+        .category-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            color: #00ffcc;
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .category-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff0080, #00ffcc);
+            margin: 10px auto;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Myzu</h1>
+            <p class="tagline">终极Minecraft游戏增强工具</p>
+            <p class="subtitle">Myzu是一款功能全面的Minecraft外挂程序，集成了市面上所有主流外挂的功能，为您提供无与伦比的游戏体验。无论您是想轻松获取资源，还是在PvP中占据绝对优势，Myzu都能满足您的需求。</p>
+            <a href="#features" class="btn">探索功能</a>
+        </header>
+        
+        <div class="highlight">
+            <h2>为什么选择Myzu？</h2>
+            <p>Myzu不仅仅是一个普通的外挂，它是经过精心设计和优化的全能游戏助手。我们持续更新以确保兼容最新版本，并提供无与伦比的稳定性和隐蔽性，让您在享受游戏的同时不被轻易检测。</p>
+        </div>
+        
+        <section id="features">
+            <h2 class="category-title">核心功能</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">杀戮光环</h3>
+                    <p class="feature-desc">自动攻击周围所有敌对生物和玩家，无需瞄准即可轻松消灭敌人。可自定义攻击范围、目标选择和攻击频率。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎁</div>
+                    <h3 class="feature-title">物品刷取</h3>
+                    <p class="feature-desc">一键生成任何游戏物品，包括稀有材料和装备。支持自定义数量、附魔和NBT标签，满足您所有创造需求。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <h3 class="feature-title">X-Ray透视</h3>
+                    <p class="feature-desc">轻松查看地下矿藏和结构，快速定位钻石、远古残骸等珍贵资源。可自定义显示方块类型和范围。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">飞行与速度</h3>
+                    <p class="feature-desc">打破游戏限制，实现自由飞行和超高速移动。可调节飞行速度和移动倍率，适应各种游戏场景。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">无敌模式</h3>
+                    <p class="feature-desc">完全免疫所有伤害，包括跌落、火焰、爆炸和生物攻击。让您在任何危险环境中都能安然无恙。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">自动瞄准</h3>
+                    <p class="feature-desc">精准锁定目标，确保每次攻击都能命中。可调节瞄准平滑度和目标优先级，实现自然而不被察觉的辅助瞄准。</p>
+                </div>
+            </div>
+            
+            <h2 class="category-title">高级功能</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">👻</div>
+                    <h3 class="feature-title">无权限飞行</h3>
+                    <p class="feature-desc">无需OP权限即可在服务器中自由飞行，绕过所有飞行检测系统，享受真正的自由移动。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌫️</div>
+                    <h3 class="feature-title">迷雾清除</h3>
+                    <p class="feature-desc">完全移除游戏中的迷雾和视野限制，让您拥有超远视距，提前发现远处的敌人和资源。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👑</div>
+                    <h3 class="feature-title">伪装OP</h3>
+                    <p class="feature-desc">在服务器中伪装成管理员，显示OP标识和权限，让其他玩家误以为您是服务器管理员。</p>
+                </div>
+                
+                <div
